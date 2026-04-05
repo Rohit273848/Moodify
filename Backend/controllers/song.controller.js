@@ -2,42 +2,46 @@
   import id3 from "node-id3";
   import storageService from "../services/storage.service.js";
 
-  async function uploadSong(req,res){
+    async function uploadSong(req,res){
+      
+      const songBuffer = req.file.buffer;
     
-    const songBuffer = req.file.buffer;
+      
 
-    const tags= id3.read(songBuffer);
+      const tags= id3.read(songBuffer);
+      console.log(tags.title);
+      console.log(tags.image);
+      
+      const {mood} = req.body;
 
-    const {mood} = req.body;
-
-    const [songFile, posterFile] = await Promise.all([
-      storageService.uploadFile({
-        buffer: songBuffer,
-        filename: tags.title + ".mp3",
-        folder: "/cohort-2/moodify/songs"
-      }),
-      storageService.uploadFile({
-        buffer: tags.image.imageBuffer,
-        filename: tags.title + ".jpeg",
-        folder: "/cohort-2/moodify/posters"
-      })
-    ]);
+      const [songFile, posterFile] = await Promise.all([
+        storageService.uploadFile({
+          buffer: songBuffer,
+          filename: tags.title + ".mp3",
+          folder: "/cohort-2/moodify/songs"
+        }),
+        storageService.uploadFile({
+          buffer: tags.image.imageBuffer,
+          filename: tags.title + ".jpeg",
+          folder: "/cohort-2/moodify/posters"
+        })
+      ]);
 
 
-      const song = await songModel.create({
-        title:tags.title,
-        url:songFile.url,
-        posterUrl:posterFile.url,
-        mood
-      })
+        const song = await songModel.create({
+          title:tags.title,
+          url:songFile.url,
+          posterUrl:posterFile.url,
+          mood
+        })
 
-      res.status(201).json({
-        success:true,
-        message:"Song uploaded successfully",
-        song
-      })
+        res.status(201).json({
+          success:true,
+          message:"Song uploaded successfully",
+          song
+        })
 
-  }
+    }
 
  const getSong = async (req, res) => {
     try {

@@ -8,6 +8,7 @@ import connectDB from './config/database.js'
 
 connectDB();
 console.log("PRIVATE KEY:", process.env.IMAGEKIT_PRIVATE_KEY);
-app.listen(3000,()=>{
-    console.log('✅ Server is running on port 3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT,()=>{
+    console.log('✅ Server is running on port '+PORT);
 })
