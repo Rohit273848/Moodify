@@ -31,7 +31,30 @@ export const init = async ({ landmarkerRef, streamRef, videoRef }) => {
 
 
 
-export const detect = ({ landmarkerRef, videoRef, animationRef, setExpression }) => {
+export const detect = ({ landmarkerRef,
+    videoRef,
+    animationRef,
+    setExpression,
+    fetchSongs,
+    hasFetchedRef,
+    navigate,
+}) => {
+
+    if (
+        !landmarkerRef?.current ||
+        !videoRef?.current ||
+        !animationRef ||
+        !setExpression
+    ) return;
+
+    const mapMood = (exp) => {
+        if (exp.includes("Happy")) return "Happy";
+        if (exp.includes("Sad")) return "Sad";
+        if (exp.includes("Angry")) return "Angry";
+        if (exp.includes("Surprise")) return "Surprise";
+        return "neutral";
+    };
+
     if (!landmarkerRef.current || !videoRef.current) return;
 
     const results = landmarkerRef.current.detectForVideo(
@@ -74,9 +97,31 @@ export const detect = ({ landmarkerRef, videoRef, animationRef, setExpression })
         }
 
         setExpression(currentExpression);
+
+        // ✅ ADD THIS RIGHT BELOW setExpression
+        if (!hasFetchedRef.current && fetchSongs) {
+            const mood = mapMood(currentExpression);
+            fetchSongs(mood);
+            hasFetchedRef.current = true;
+
+            cancelAnimationFrame(animationRef.current);
+            if (navigate) {
+                navigate("/songs");
+              }
+        }
+
     } else {
         setExpression("No face detected");
     }
 
-    animationRef.current = requestAnimationFrame(detect);
+    animationRef.current = requestAnimationFrame(() =>
+        detect({
+            landmarkerRef,
+            videoRef,
+            animationRef,
+            setExpression,
+            fetchSongs,
+            hasFetchedRef,
+        })
+    );
 };

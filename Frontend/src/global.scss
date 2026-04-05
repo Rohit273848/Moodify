@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: #0f0f0f;
+    color: white;
+  }
+  
+  /* Neon glow */
+  .neon-button {
+    background: transparent;
+    border: 2px solid #00ffcc;
+    color: #00ffcc;
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .neon-button:hover {
+    background: #00ffcc;
+    color: black;
+    box-shadow: 0 0 20px #00ffcc;
+  }
+  
+  /* Glass card */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 16px;
+  }

@@ -57,7 +57,7 @@
   }
   
   @keyframes chargePulse {
-    0%   { box-shadow: 0 0 0 0   rgba(225, 3, 77, 0.55), inset 0 0 0 0 rgba(225, 3, 77, 0); }
+    0%   { box-shadow: 0 0 0 0   #ff2d9b, inset 0 0 0 0 rgba(225, 3, 77, 0); }
     50%  { box-shadow: 0 0 0 6px rgba(225, 3, 77, 0),    inset 0 0 12px rgba(225, 3, 77, 0.08); }
     100% { box-shadow: 0 0 0 0   rgba(225, 3, 77, 0),    inset 0 0 0 0  rgba(225, 3, 77, 0); }
   }
@@ -379,7 +379,7 @@
       }
   
       &.primary-button {
-        background-color: #9e0234;
+        background-color: #ff2d9b;
         color: #ffd6e0;
   
         border-top: 1px solid rgba(255, 100, 130, 0.25);
