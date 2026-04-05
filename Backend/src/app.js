@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 app.use(
     cors({
-      origin: "https://moodify-kappa-one.vercel.app",
+      origin: "https://moodify-my.vercel.app",
       credentials: true,
     })
   );
